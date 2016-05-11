@@ -1,3 +1,9 @@
+'''
+Created on May 10, 2016
+
+@author: gummi
+'''
+
 from requests import request
 import parse_data as parse
 

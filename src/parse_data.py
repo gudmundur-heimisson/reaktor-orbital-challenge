@@ -1,3 +1,9 @@
+'''
+Created on May 10, 2016
+
+@author: gummi
+'''
+
 import re
 import numpy as np
 from satellite import Satellite

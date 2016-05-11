@@ -3,6 +3,7 @@ Created on May 10, 2016
 
 @author: gummi
 '''
+
 from unittest import TestCase
 from satellite import Satellite, line_of_sight
 from math import pi, sqrt
