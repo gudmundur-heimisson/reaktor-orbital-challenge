@@ -5,7 +5,7 @@ Created on May 9, 2016
 '''
 
 import numpy as np
-import geometry as geom
+from geometry import magnitude, tangent_point, cartesian
 import earth
 
 class Satellite():
@@ -13,9 +13,8 @@ class Satellite():
     # id is a reserved keyword, use ID instead
     def __init__(self, ID, lat, lon, alt):
         self.id = ID
-        self.lat = lat
-        self.lon = lon
-        self.alt = alt
+        self._R = np.array([alt, lon, lat], dtype='float_')
+        self._X = cartesian(*self._R)
 
     def __eq__(self, other):
         attrs = ['id', 'lat', 'lon', 'alt']
@@ -23,11 +22,22 @@ class Satellite():
 
     def __str__(self):
         return ','.join(str(attr) for attr in
-                        [self.id, self.lat, self.lon, self.alt])
+                        [self.id, np.rad2deg(self.lat), np.rad2deg(self.lon), self.alt])
+
+    @property
+    def alt(self):
+        return self._R[0]
+
+    @property
+    def lon(self):
+        return self._R[1]
+
+    @property
+    def lat(self):
+        return self._R[2]
 
 
-def line_of_sight(sat1, sat2):
-    R1 = np.array([earth.radius + sat1.alt, sat1.lon, sat1.lat])
-    R2 = np.array([earth.radius + sat2.alt, sat2.lon, sat2.lat])
-    X1, X2 = geom.cartesian(*R1), geom.cartesian(*R2)
-    return geom.magnitude(geom.tangent_point(X1, X2)) > earth.radius
+    def sees(self, other):
+        return magnitude(tangent_point(self._X, other._X)) > earth.radius
+
+
