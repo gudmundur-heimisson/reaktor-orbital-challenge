@@ -28,6 +28,10 @@ def distance(X, Y):
     return magnitude(X - Y)
 
 def tangent_point(X, Y):
+    '''
+    Returns the point on the line between X and Y
+    that is tangent to a sphere centered on the origin
+    '''
     D = X-Y
     L = -np.dot(Y,D)/np.dot(D, D)
     if L >= 1:
