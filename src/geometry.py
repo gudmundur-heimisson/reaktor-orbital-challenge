@@ -3,6 +3,7 @@ Created on May 9, 2016
 
 @author: Gummi Heimisson
 '''
+
 import numpy as np
 
 def polar(x, y, z):
@@ -26,11 +27,9 @@ def magnitude(X):
 def distance(X, Y):
     return magnitude(X - Y)
 
-def closest_point(X, Y):
-    a = np.power(Y, 2)
-    b = np.power(X-Y, 2)
-    c = X * Y
-    L = -b + np.sqrt(np.power(b, 2) - 4*a*c) / 2*a
+def tangent_point(X, Y):
+    D = X-Y
+    L = -np.dot(Y,D)/np.dot(D, D)
     if L >= 1:
         return X
     elif L <= 0:

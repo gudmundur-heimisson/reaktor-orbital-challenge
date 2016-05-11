@@ -1,3 +1,9 @@
+'''
+Created on May 9, 2016
+
+@author: Gummi Heimisson
+'''
+
 from unittest import TestCase
 from math import pi, sqrt
 import numpy as np
@@ -37,3 +43,15 @@ class GeometryTest(TestCase):
         print("Dist: ", dist)
         self.assertAlmostEqual(dist, self.X[2])
 
+    def test_tangent_point(self):
+        x = np.array([1, 0])
+        y = np.array([0, 1])
+        tp = geo.tangent_point(x, y)
+        tp_actual = np.array([0.5, 0.5])
+        print("tp: ", tp)
+        self.assertAlmostEqual(self.error(tp, tp_actual), 0)
+        x = np.array([0.1, 0.1])
+        y = np.array([0, 1])
+        tp = geo.tangent_point(x, y)
+        print("tp: ", tp)
+        self.assertAlmostEqual(self.error(tp, x), 0)
